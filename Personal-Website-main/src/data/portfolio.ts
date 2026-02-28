@@ -38,7 +38,7 @@ export const technologies = [
 
 export const about = {
   bio:
-    "Software Engineering student with a focused background in mobile and software development. Proficient in Python and C++ with a solid foundation in Data Structures and Algorithms. Adept at building cross-platform solutions, managing cloud-based tools like Docker, and optimizing application performance. Proven ability to deliver end-to-end projects, ranging from API-integrated navigation apps to automated classification models.",
+    "I am a Software Engineering student focused on creating efficient, scalable, and reliable software. I am passionate about building purposeful products that people can rely on in their daily lives. With a strong foundation in Python and C++, I strive to bridge the gap between complex backend logic and seamless user experiences to deliver tools that make a real impact.",
   experience: [
     {
       title: "Information Technology Support Specialist",
@@ -69,7 +69,7 @@ export const about = {
     { name: "Ukrainian", level: "Native" },
     { name: "Russian", level: "Fluent" },
   ],
-  interests: ["AI", "Machine Learning", "Mobile ML", "Software Engineering", "Research"],
+  interests: ["AI", "Machine Learning","Data Engineering" ,"Mobile ML", "Software Engineering", "Research"],
 };
 
 export const projects = [

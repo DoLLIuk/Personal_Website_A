@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, GraduationCap, Heart } from "lucide-react";
+import { Briefcase, GraduationCap, Heart, Globe } from "lucide-react";
 import { about, technologies } from "@/data/portfolio";
 
 const About = () => {
@@ -48,30 +48,49 @@ const About = () => {
             {about.bio}
           </motion.p>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* Experience */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Experience + Languages (left column) */}
             <motion.div variants={itemVariants}>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Briefcase className="text-primary" size={24} />
-                    <h3 className="text-xl font-semibold">Experience</h3>
-                  </div>
-                  <div className="space-y-6">
-                    {about.experience.map((exp, index) => (
-                      <div key={index} className="border-l-2 border-primary pl-4">
-                        <h4 className="font-semibold">{exp.title}</h4>
-                        <p className="text-sm text-primary">{exp.company}</p>
-                        <p className="text-sm text-muted-foreground mb-2">{exp.period}</p>
-                        <p className="text-sm">{exp.description}</p>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Briefcase className="text-primary" size={24} />
+                      <h3 className="text-xl font-semibold">Experience</h3>
+                    </div>
+                    <div className="space-y-6">
+                      {about.experience.map((exp, index) => (
+                        <div key={index} className="border-l-2 border-primary pl-4">
+                          <h4 className="font-semibold">{exp.title}</h4>
+                          <p className="text-sm text-primary">{exp.company}</p>
+                          <p className="text-sm text-muted-foreground mb-2">{exp.period}</p>
+                          <p className="text-sm">{exp.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Globe className="text-primary" size={24} />
+                      <h3 className="text-xl font-semibold">Languages</h3>
+                    </div>
+                    <div className="space-y-2">
+                      {about.languages.map((lang, index) => (
+                        <div key={index} className="flex items-center justify-between border-l-2 border-primary pl-4">
+                          <span className="font-medium">{lang.name}</span>
+                          <span className="text-sm text-muted-foreground">{lang.level}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </motion.div>
 
-            {/* Education & Interests */}
+            {/* Education, Languages & Interests */}
             <motion.div variants={itemVariants} className="space-y-8">
               <Card>
                 <CardContent className="p-6">
