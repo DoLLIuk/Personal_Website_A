@@ -108,6 +108,13 @@ export const projects = [
       "Local Explorer is a native iOS app that helps users discover nearby points of interest with a clean, accessible SwiftUI interface. It integrates Google Maps SDK for dynamic map interactions and the Google Directions API for smart routing. The app preprocesses and parses JSON location data to ensure fast, accurate display of POIs and supports category-driven updates and smooth UI transitions.",
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
     technologies: ["Swift", "SwiftUI", "Google Maps SDK", "Google Directions API"],
+    features: [
+      "Dynamic Map Interaction: Real-time discovery of nearby restaurants, hotels, and attractions using Google Maps SDK.",
+      "Smart Routing: Automated route generation and distance calculation powered by the Google Directions API.",
+      "Advanced Data Processing: Custom JSON parsing and transformation logic to ensure fast, accurate display of location data.",
+      "Modern UI/UX: Clean, accessible SwiftUI interface with category-driven updates and smooth transitions.",
+      "Tools & Setup: Implemented in Swift with Xcode; integrates Google Maps SDK and Google Directions API.",
+    ],
     github: "",
     demo: "",
   },
