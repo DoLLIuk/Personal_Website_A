@@ -1,6 +1,8 @@
 // ...existing code...
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +12,7 @@ import { Link } from "react-router-dom";
 
 const Projects = () => {
   const ref = useRef<HTMLElement | null>(null);
+  const location = useLocation();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,6 +40,27 @@ const Projects = () => {
   const Item: any = motion.div;
   const H2: any = motion.h2;
   const P: any = motion.p;
+
+  useEffect(() => {
+    // Only perform the adjusted scroll when navigating back from a project detail.
+    if (location.hash === "#projects" && (location.state as any)?.fromProject) {
+      const timer = setTimeout(() => {
+        const el = ref.current;
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          const offset = Math.round(window.innerHeight * 0.025);
+          window.scrollTo({ top: Math.max(0, top + offset), behavior: "smooth" });
+          // Clear history state so refresh or subsequent navigations don't re-trigger scroll
+          try {
+            window.history.replaceState(null, document.title, window.location.href);
+          } catch (e) {
+            /* no-op */
+          }
+        }
+      }, 120);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   return (
     <section ref={ref} id="projects" className="scroll-mt-24 py-20 px-4">

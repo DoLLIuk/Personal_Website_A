@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "predeploy": "npm --prefix Personal-Website-main run predeploy",
+    "deploy": "npm --prefix Personal-Website-main run deploy"
+  },
   "devDependencies": {
     "gh-pages": "^6.3.0"
   }

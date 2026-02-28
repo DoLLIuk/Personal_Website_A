@@ -29,7 +29,13 @@ const Navigation = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (id === "projects") {
+        const top = element.getBoundingClientRect().top + window.scrollY;
+        const offset = Math.round(window.innerHeight * 0.025);
+        window.scrollTo({ top: Math.max(0, top + offset), behavior: "smooth" });
+      } else {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
       setIsMobileMenuOpen(false);
     }
   };

@@ -23,7 +23,7 @@ const ProjectDetail = () => {
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Project not found</h1>
           <Button asChild>
-            <Link to="/#projects">
+            <Link to="/#projects" state={{ fromProject: true }}>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Home
             </Link>
@@ -42,7 +42,7 @@ const ProjectDetail = () => {
         className="container mx-auto px-4 py-8"
       >
         <Button asChild variant="ghost" className="mb-8">
-          <Link to="/#projects">
+          <Link to="/#projects" state={{ fromProject: true }}>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
           </Link>
