@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import profileImage from "@/assets/pro_selfie_photo_v.05.png";
+import profileImage from "@/assets/pro_selfie_photo_v.08.png";
 import { personalInfo } from "@/data/portfolio";
 
 const Hero = () => {

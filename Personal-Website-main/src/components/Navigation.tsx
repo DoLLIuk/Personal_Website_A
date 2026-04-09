@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
-import profileImage from "@/assets/pro_selfie_photo_v.05.png";
+import profileImage from "@/assets/pro_selfie_photo_v.08.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
