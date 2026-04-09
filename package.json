@@ -1,9 +1,8 @@
 {
+  "private": true,
   "scripts": {
-    "predeploy": "npm --prefix Personal-Website-main run predeploy",
-    "deploy": "npm --prefix Personal-Website-main run deploy"
-  },
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "dev": "npm --prefix Personal-Website-main run dev",
+    "build": "npm --prefix Personal-Website-main run build",
+    "preview": "npm --prefix Personal-Website-main run preview"
   }
 }
