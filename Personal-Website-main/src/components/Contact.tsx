@@ -93,16 +93,6 @@ const Contact = () => {
                     </div>
                   ))}
 
-                  <div className="mt-auto flex flex-wrap gap-3 pt-2">
-                    <Button asChild>
-                      <a href={socialLinks.email}>Email Me</a>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                        View LinkedIn
-                      </a>
-                    </Button>
-                  </div>
                 </CardContent>
               </Card>
             </motion.div>
