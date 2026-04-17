@@ -1,15 +1,10 @@
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import React, { useEffect, useRef, Suspense, lazy } from "react";
 import { ThemeProvider } from "next-themes";
 const Index = lazy(() => import("./pages/Index"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-
-const queryClient = new QueryClient();
 
 const ScrollHandler = () => {
   const { pathname, hash } = useLocation();
@@ -50,31 +45,25 @@ const App = () => {
       // ensure body overflow isn't accidentally hidden
       document.body.style.overflow = "visible";
       // helpful console message for the developer
-      // eslint-disable-next-line no-console
       console.info("Debug mode: outlines enabled (use ?debug to toggle)");
     }
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <HashRouter>
-            <ScrollHandler />
-            <Suspense fallback={<div className="p-4">Загрузка...</div>}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/project/:id" element={<ProjectDetail />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </HashRouter>
-        </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+      <Sonner />
+      <HashRouter>
+        <ScrollHandler />
+        <Suspense fallback={<div className="p-4">Загрузка...</div>}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </HashRouter>
+    </ThemeProvider>
   );
 };
 

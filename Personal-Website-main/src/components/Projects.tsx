@@ -1,4 +1,3 @@
-// ...existing code...
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -13,6 +12,7 @@ import { Link } from "react-router-dom";
 const Projects = () => {
   const ref = useRef<HTMLElement | null>(null);
   const location = useLocation();
+  const fromProject = (location.state as { fromProject?: boolean } | null)?.fromProject;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -35,15 +35,9 @@ const Projects = () => {
     },
   };
 
-  // Use static `motion` import for consistent element types
-  const Container: any = motion.div;
-  const Item: any = motion.div;
-  const H2: any = motion.h2;
-  const P: any = motion.p;
-
   useEffect(() => {
     // Only perform the adjusted scroll when navigating back from a project detail.
-    if (location.hash === "#projects" && (location.state as any)?.fromProject) {
+    if (location.hash === "#projects" && fromProject) {
       const timer = setTimeout(() => {
         const el = ref.current;
         if (el) {
@@ -60,27 +54,27 @@ const Projects = () => {
       }, 120);
       return () => clearTimeout(timer);
     }
-  }, [location]);
+  }, [fromProject, location]);
 
   return (
     <section ref={ref} id="projects" className="scroll-mt-24 py-20 px-4">
       <div className="container mx-auto">
-        <Container
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
-          <H2 variants={itemVariants} className="text-3xl md:text-4xl font-bold text-center mb-4">
+          <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold text-center mb-4">
             My Projects
-          </H2>
-          <P variants={itemVariants} className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p variants={itemVariants} className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Here are some of my recent works. Each project was created with attention to detail and best development practices.
-          </P>
+          </motion.p>
 
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project) => (
-              <Item key={project.id} variants={itemVariants}>
+              <motion.div key={project.id} variants={itemVariants}>
                 <Card className="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow">
                   <Link to={`/project/${project.id}`}>
                     <div className="aspect-video overflow-hidden bg-muted cursor-pointer">
@@ -121,14 +115,13 @@ const Projects = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </Item>
+              </motion.div>
             ))}
           </div>
-        </Container>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default React.memo(Projects);
-// ...existing code...

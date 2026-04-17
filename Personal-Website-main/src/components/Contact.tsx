@@ -1,35 +1,10 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
-import { socialLinks } from "@/data/portfolio";
-import { useState } from "react";
-import { toast } from "sonner";
+import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { personalInfo, socialLinks } from "@/data/portfolio";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you can add form submission logic
-    toast.success("Message sent! I will get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -58,6 +33,12 @@ const Contact = () => {
     { icon: Phone, href: socialLinks.phone, label: "Phone" },
   ];
 
+  const contactDetails = [
+    { icon: Mail, label: "Email", value: personalInfo.email, href: socialLinks.email },
+    { icon: Phone, label: "Phone", value: personalInfo.phone, href: socialLinks.phone },
+    { icon: MapPin, label: "Location", value: personalInfo.location },
+  ];
+
   return (
     <section id="contact" className="py-20 px-4 bg-secondary/30">
       <div className="container mx-auto max-w-4xl">
@@ -77,68 +58,60 @@ const Contact = () => {
             variants={itemVariants}
             className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
           >
-            Have a question or proposal? I would be happy to discuss your project!
+            Open to internships, collaborations, and software engineering opportunities.
           </motion.p>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div variants={itemVariants} className="md:col-span-2">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
+            <motion.div variants={itemVariants}>
               <Card>
                 <CardHeader>
-                  <CardTitle>Send Message</CardTitle>
+                  <CardTitle>Let&apos;s Connect</CardTitle>
                   <CardDescription>
-                    Fill out the form below and I will get back to you as soon as possible
+                    The fastest way to reach me is by email or LinkedIn. I am happy to discuss projects, internships, and learning opportunities.
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your name"
-                        required
-                      />
+                <CardContent className="space-y-4">
+                  {contactDetails.map((detail) => (
+                    <div
+                      key={detail.label}
+                      className="flex items-start gap-3 rounded-lg border bg-background/70 p-4"
+                    >
+                      <detail.icon className="mt-0.5 h-5 w-5 text-primary" />
+                      <div>
+                        <p className="text-sm font-medium">{detail.label}</p>
+                        {detail.href ? (
+                          <a
+                            href={detail.href}
+                            className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                          >
+                            {detail.value}
+                          </a>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">{detail.value}</p>
+                        )}
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="your.email@example.com"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Your message..."
-                        rows={5}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full">
-                      Send
+                  ))}
+
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <Button asChild>
+                      <a href={socialLinks.email}>Email Me</a>
                     </Button>
-                  </form>
+                    <Button asChild variant="outline">
+                      <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                        View LinkedIn
+                      </a>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div variants={itemVariants}>
               <Card>
                 <CardHeader>
-                  <CardTitle>Social Media</CardTitle>
-                  <CardDescription>Find me on social networks</CardDescription>
+                  <CardTitle>Profiles</CardTitle>
+                  <CardDescription>Find me on the platforms below</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {socialIcons.map((social, index) => (
