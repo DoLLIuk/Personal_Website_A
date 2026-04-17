@@ -1,8 +1,11 @@
+import localExplorerScreenshot1 from "@/assets/local_explorer.png";
+import localExplorerScreenshot2 from "@/assets/local_explorer2.png";
+
 export const personalInfo = {
   name: "Mykyta Holovko",
-  title: "Software Engineering Student",
+  title: "Software Engineering Student Seeking Internship Opportunities",
   description:
-    "Software Engineering student with a focused background in mobile and software development. Proficient in Python and C++ with a solid foundation in Data Structures and Algorithms.",
+    "Software Engineering student interested in software development, data analytics, and applied machine learning. Building practical projects with Python, C++, and mobile technologies while seeking internship opportunities across the tech field.",
   email: "golovkonikita25@gmail.com",
   phone: "+1 224-284-3342",
   location: "Chicago, IL",
@@ -106,7 +109,8 @@ export const projects = [
       "A native iOS application designed to enhance urban exploration by helping users discover local points of interest. The app features a responsive, modern interface that provides real-time navigation and personalized discovery through deep integration with location-based services.",
     fullDescription:
       "Local Explorer is a native iOS app that helps users discover nearby points of interest with a clean, accessible SwiftUI interface. It integrates Google Maps SDK for dynamic map interactions and the Google Directions API for smart routing. The app preprocesses and parses JSON location data to ensure fast, accurate display of POIs and supports category-driven updates and smooth UI transitions.",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
+    image: localExplorerScreenshot1,
+    screenshots: [localExplorerScreenshot1, localExplorerScreenshot2],
     technologies: ["Swift", "SwiftUI", "Google Maps SDK", "Google Directions API"],
     features: [
       "Dynamic Map Interaction: Real-time discovery of nearby restaurants, hotels, and attractions using Google Maps SDK.",

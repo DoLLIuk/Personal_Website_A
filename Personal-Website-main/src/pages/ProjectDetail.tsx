@@ -95,6 +95,25 @@ const ProjectDetail = () => {
                   <p className="text-muted-foreground leading-relaxed mb-4">
                     {project.fullDescription || project.description}
                   </p>
+
+                  {project.screenshots && project.screenshots.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">Screenshots</h3>
+                      <div className="grid gap-4 md:grid-cols-2 not-prose">
+                        {project.screenshots.map((screenshot: string, index: number) => (
+                          <Card key={index} className="overflow-hidden border bg-background">
+                            <img
+                              src={screenshot}
+                              alt={`${project.title} screenshot ${index + 1}`}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-auto"
+                            />
+                          </Card>
+                        ))}
+                      </div>
+                    </>
+                  )}
                   
                   <h3 className="text-xl font-semibold mb-3 mt-6">Key Features</h3>
                   {project.features ? (
