@@ -61,16 +61,16 @@ const Contact = () => {
             Open to internships, collaborations, and software engineering opportunities.
           </motion.p>
 
-          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
-            <motion.div variants={itemVariants}>
-              <Card>
+          <div className="grid items-stretch lg:grid-cols-[1.2fr_0.8fr] gap-8">
+            <motion.div variants={itemVariants} className="h-full">
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle>Let&apos;s Connect</CardTitle>
                   <CardDescription>
                     The fastest way to reach me is by email or LinkedIn. I am happy to discuss projects, internships, and learning opportunities.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="flex h-full flex-col space-y-4">
                   {contactDetails.map((detail) => (
                     <div
                       key={detail.label}
@@ -93,7 +93,7 @@ const Contact = () => {
                     </div>
                   ))}
 
-                  <div className="flex flex-wrap gap-3 pt-2">
+                  <div className="mt-auto flex flex-wrap gap-3 pt-2">
                     <Button asChild>
                       <a href={socialLinks.email}>Email Me</a>
                     </Button>
@@ -107,8 +107,8 @@ const Contact = () => {
               </Card>
             </motion.div>
 
-            <motion.div variants={itemVariants}>
-              <Card>
+            <motion.div variants={itemVariants} className="h-full">
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle>Profiles</CardTitle>
                   <CardDescription>Find me on the platforms below</CardDescription>
