@@ -83,7 +83,9 @@ const Projects = () => {
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
+                          project.id === 2 ? "object-top" : ""
+                        }`}
                       />
                     </div>
                   </Link>

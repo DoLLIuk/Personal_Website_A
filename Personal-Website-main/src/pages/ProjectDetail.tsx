@@ -78,15 +78,17 @@ const ProjectDetail = () => {
               </Button>
             </div>
 
-            <Card className="overflow-hidden mb-8">
-              <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-auto"
-              />
-            </Card>
+            {project.id !== 2 && (
+              <Card className="overflow-hidden mb-8">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto"
+                />
+              </Card>
+            )}
 
             <Card>
               <CardContent className="pt-6">
