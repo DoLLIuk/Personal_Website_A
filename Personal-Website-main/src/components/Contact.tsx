@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { personalInfo, socialLinks } from "@/data/portfolio";
 
 const Contact = () => {
@@ -29,13 +29,10 @@ const Contact = () => {
   const socialIcons = [
     { icon: Github, href: socialLinks.github, label: "GitHub" },
     { icon: Linkedin, href: socialLinks.linkedin, label: "LinkedIn" },
-    { icon: Mail, href: socialLinks.email, label: "Email" },
-    { icon: Phone, href: socialLinks.phone, label: "Phone" },
   ];
 
   const contactDetails = [
     { icon: Mail, label: "Email", value: personalInfo.email, href: socialLinks.email },
-    { icon: Phone, label: "Phone", value: personalInfo.phone, href: socialLinks.phone },
     { icon: MapPin, label: "Location", value: personalInfo.location },
   ];
 
@@ -65,9 +62,9 @@ const Contact = () => {
             <motion.div variants={itemVariants} className="h-full">
               <Card className="h-full">
                 <CardHeader>
-                  <CardTitle>Let&apos;s Connect</CardTitle>
+                  <CardTitle>Contact</CardTitle>
                   <CardDescription>
-                    The fastest way to reach me is by email or LinkedIn. I am happy to discuss projects, internships, and learning opportunities.
+                    The best way to reach me is by email. I am open to internships, collaborations, and software engineering opportunities.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex h-full flex-col space-y-4">

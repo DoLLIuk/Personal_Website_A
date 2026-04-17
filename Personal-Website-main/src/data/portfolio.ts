@@ -5,7 +5,7 @@ export const personalInfo = {
     "Software Engineering student with a focused background in mobile and software development. Proficient in Python and C++ with a solid foundation in Data Structures and Algorithms.",
   email: "golovkonikita25@gmail.com",
   phone: "+1 224-284-3342",
-  location: "Harper College",
+  location: "Chicago, IL",
 };
 
 export const skills = [
