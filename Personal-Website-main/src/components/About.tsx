@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, GraduationCap, Heart, Globe } from "lucide-react";
-import { about, technologies } from "@/data/portfolio";
+import { about, technologyGroups } from "@/data/portfolio";
 
 const About = () => {
   const containerVariants = {
@@ -131,17 +131,26 @@ const About = () => {
           {/* Technologies */}
           <motion.div variants={itemVariants}>
             <h3 className="text-2xl font-semibold text-center mb-6">Technologies</h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {technologies.map((tech, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Badge variant="outline" className="text-base px-4 py-2">
-                    {tech}
-                  </Badge>
-                </motion.div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {technologyGroups.map((group) => (
+                <Card key={group.title} className="h-full">
+                  <CardContent className="p-6">
+                    <h4 className="text-lg font-semibold mb-4">{group.title}</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {group.items.map((tech) => (
+                        <motion.div
+                          key={tech}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.97 }}
+                        >
+                          <Badge variant="outline" className="text-base px-4 py-2">
+                            {tech}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </motion.div>

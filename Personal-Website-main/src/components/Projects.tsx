@@ -69,17 +69,25 @@ const Projects = () => {
             My Projects
           </motion.h2>
           <motion.p variants={itemVariants} className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Here are some of my recent works. Each project was created with attention to detail and best development practices.
+            A selection of AI, mobile, and software engineering projects focused on practical implementation, product thinking, and reliable user experiences.
           </motion.p>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <motion.div key={project.id} variants={itemVariants}>
-                <Card className="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow">
+            {projects.map((project) => {
+              const previewTechnologies =
+                project.previewTechnologies ?? project.technologies;
+
+              return (
+                <motion.div key={project.id} variants={itemVariants}>
+                  <Card className="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow">
                   <Link to={`/project/${project.id}`}>
                     <div
                       className={`aspect-video overflow-hidden cursor-pointer ${
-                        project.id === 1 ? "bg-white px-2 py-1 flex items-center justify-center" : "bg-muted"
+                        project.previewMode === "contain"
+                          ? "bg-white px-2 py-1 flex items-center justify-center"
+                          : project.previewMode === "cover-top"
+                            ? "bg-muted"
+                            : "bg-muted"
                       }`}
                     >
                       <img
@@ -88,9 +96,9 @@ const Projects = () => {
                         loading="lazy"
                         decoding="async"
                         className={`w-full h-full transition-transform duration-300 ${
-                          project.id === 1
+                          project.previewMode === "contain"
                             ? "object-contain scale-[1.42] hover:scale-[1.48]"
-                            : project.id === 2
+                            : project.previewMode === "cover-top"
                               ? "object-cover object-top hover:scale-105"
                               : "object-cover hover:scale-105"
                         }`}
@@ -103,30 +111,33 @@ const Projects = () => {
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col justify-between">
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, index) => (
+                      {previewTechnologies.map((tech, index) => (
                         <Badge key={index} variant="secondary">
                           {tech}
                         </Badge>
                       ))}
                     </div>
                     <div className="flex gap-3">
-                      <Button asChild variant="outline" size="sm" className="flex-1">
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="mr-2 h-4 w-4" />
-                          GitHub
-                        </a>
-                      </Button>
+                      {project.github && (
+                        <Button asChild variant="outline" size="sm" className="flex-1">
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="mr-2 h-4 w-4" />
+                            GitHub
+                          </a>
+                        </Button>
+                      )}
                       <Button asChild size="sm" className="flex-1">
                         <Link to={`/project/${project.id}`}>
                           <ExternalLink className="mr-2 h-4 w-4" />
-                          Demo
+                          View Details
                         </Link>
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

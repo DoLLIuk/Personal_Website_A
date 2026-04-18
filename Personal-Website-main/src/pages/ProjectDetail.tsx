@@ -1,21 +1,55 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Github } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Github,
+} from "lucide-react";
 import { projects } from "@/data/portfolio";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const project = projects.find((p) => p.id === Number(id));
+  const [activeScreenshot, setActiveScreenshot] = useState(0);
 
   // Ensure we land at the top when opening a project page
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, []);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    setActiveScreenshot(0);
+  }, [id]);
+
+  const screenshots = project?.screenshots ?? [];
+  const hiddenFacts = new Set(project?.hiddenFacts ?? []);
+  const hiddenSections = new Set(project?.hiddenSections ?? []);
+  const isMobileScreenshotLayout = project?.screenshotLayout === "mobile";
+  const projectFacts = [
+    project?.category ? { label: "Project Type", value: project.category } : null,
+    project?.role ? { label: "My Role", value: project.role } : null,
+    project?.team ? { label: "Team", value: project.team } : null,
+    project?.timeline ? { label: "Timeline", value: project.timeline } : null,
+    project?.status ? { label: "Status", value: project.status } : null,
+  ].filter(
+    (fact): fact is { label: string; value: string } =>
+      fact !== null && !hiddenFacts.has(fact.label),
+  );
+
+  const showPreviousScreenshot = () => {
+    setActiveScreenshot((current) =>
+      current === 0 ? screenshots.length - 1 : current - 1,
+    );
+  };
+
+  const showNextScreenshot = () => {
+    setActiveScreenshot((current) =>
+      current === screenshots.length - 1 ? 0 : current + 1,
+    );
+  };
 
   if (!project) {
     return (
@@ -69,16 +103,53 @@ const ProjectDetail = () => {
               ))}
             </div>
 
-            <div className="flex gap-4 mb-8">
-              <Button asChild size="lg" className="shadow-sm hover:shadow-md transition">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-5 w-5" />
-                  GitHub
-                </a>
-              </Button>
+            {projectFacts.length > 0 && (
+              <div className="grid gap-4 md:grid-cols-2 mb-8">
+                {projectFacts.map((fact) => (
+                  <Card key={fact.label} className="border-border/60">
+                    <CardContent className="pt-6">
+                      <p className="text-sm font-medium text-muted-foreground mb-2">
+                        {fact.label}
+                      </p>
+                      <p className="text-base leading-relaxed">{fact.value}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-4 mb-8">
+              {project.github && (
+                <Button
+                  asChild
+                  size="lg"
+                  className="shadow-sm hover:shadow-md transition"
+                >
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github className="mr-2 h-5 w-5" />
+                    GitHub
+                  </a>
+                </Button>
+              )}
+              {project.demo && (
+                <Button asChild size="lg" variant="outline">
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="mr-2 h-5 w-5" />
+                    Live Demo
+                  </a>
+                </Button>
+              )}
             </div>
 
-            {project.id !== 2 && (
+            {project.showDetailHeroImage !== false && !project.architectureImage && (
               <Card className="overflow-hidden mb-8">
                 <img
                   src={project.image}
@@ -98,25 +169,131 @@ const ProjectDetail = () => {
                     {project.fullDescription || project.description}
                   </p>
 
-                  {project.screenshots && project.screenshots.length > 0 && (
+                  {!hiddenSections.has("highlights") &&
+                    project.highlights &&
+                    project.highlights.length > 0 && (
                     <>
-                      <h3 className="text-xl font-semibold mb-3 mt-6">Screenshots</h3>
-                      <div className="grid gap-4 md:grid-cols-2 not-prose">
-                        {project.screenshots.map((screenshot: string, index: number) => (
-                          <Card key={index} className="overflow-hidden border bg-background">
-                            <img
-                              src={screenshot}
-                              alt={`${project.title} screenshot ${index + 1}`}
-                              loading="lazy"
-                              decoding="async"
-                              className="w-full h-auto"
-                            />
-                          </Card>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">
+                        Why This Project Stands Out
+                      </h3>
+                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        {project.highlights.map((highlight: string, index: number) => (
+                          <li key={index}>{highlight}</li>
                         ))}
+                      </ul>
+                    </>
+                  )}
+
+                  {project.architectureImage && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">
+                        {project.architectureTitle || "Architecture"}
+                      </h3>
+                      {project.architectureDescription && (
+                        <p className="text-muted-foreground leading-relaxed mb-4">
+                          {project.architectureDescription}
+                        </p>
+                      )}
+                      <div className="not-prose space-y-4">
+                        <Card className="overflow-hidden border bg-background">
+                          <img
+                            src={project.architectureImage}
+                            alt={`${project.title} architecture diagram`}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-auto"
+                          />
+                        </Card>
+                        {project.architectureHighlights &&
+                          project.architectureHighlights.length > 0 && (
+                            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                              {project.architectureHighlights.map(
+                                (item: string, index: number) => (
+                                  <li key={index}>{item}</li>
+                                ),
+                              )}
+                            </ul>
+                          )}
                       </div>
                     </>
                   )}
-                  
+
+                  {screenshots.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">Screenshots</h3>
+                      <div
+                        className="not-prose mx-auto space-y-4"
+                        style={{
+                          maxWidth: isMobileScreenshotLayout
+                            ? "26rem"
+                            : project.screenshotScale
+                            ? `${48 * project.screenshotScale}rem`
+                            : "48rem",
+                        }}
+                      >
+                        <Card className="overflow-hidden border bg-background">
+                          <div
+                            className={`relative overflow-hidden rounded-lg ${
+                              isMobileScreenshotLayout ? "px-3 py-3" : "px-2 py-2"
+                            }`}
+                          >
+                            <div className="relative flex items-center justify-center">
+                            <img
+                              src={screenshots[activeScreenshot]}
+                              alt={`${project.title} screenshot ${activeScreenshot + 1}`}
+                              loading="lazy"
+                              decoding="async"
+                              className={`mx-auto h-auto rounded-lg ${
+                                isMobileScreenshotLayout ? "w-auto max-h-[42rem]" : "w-full"
+                              }`}
+                            />
+                            </div>
+                            {screenshots.length > 1 && (
+                              <>
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  size="icon"
+                                  className="absolute left-4 top-1/2 -translate-y-1/2 shadow-md"
+                                  onClick={showPreviousScreenshot}
+                                >
+                                  <ChevronLeft className="h-5 w-5" />
+                                </Button>
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  size="icon"
+                                  className="absolute right-4 top-1/2 -translate-y-1/2 shadow-md"
+                                  onClick={showNextScreenshot}
+                                >
+                                  <ChevronRight className="h-5 w-5" />
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                        </Card>
+
+                        {screenshots.length > 1 && (
+                          <div className="flex flex-wrap justify-center gap-2">
+                            {screenshots.map((_: string, index: number) => (
+                              <button
+                                key={index}
+                                type="button"
+                                aria-label={`Show screenshot ${index + 1}`}
+                                onClick={() => setActiveScreenshot(index)}
+                                className={`h-2.5 rounded-full transition-all ${
+                                  index === activeScreenshot
+                                    ? "w-8 bg-primary"
+                                    : "w-2.5 bg-border hover:bg-muted-foreground/40"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+
                   <h3 className="text-xl font-semibold mb-3 mt-6">Key Features</h3>
                   {project.features ? (
                     <ul className="list-disc list-inside space-y-2 text-muted-foreground">
@@ -133,11 +310,57 @@ const ProjectDetail = () => {
                     </ul>
                   )}
 
-                  <h3 className="text-xl font-semibold mb-3 mt-6">Technologies</h3>
-                  <p className="text-muted-foreground">
-                    The project was developed using {project.technologies.join(", ")}. 
-                    The application architecture ensures scalability and ease of maintenance.
-                  </p>
+                  {!hiddenSections.has("outcomes") &&
+                    project.outcomes &&
+                    project.outcomes.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">
+                        Engineering Outcomes
+                      </h3>
+                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                        {project.outcomes.map((outcome: string, index: number) => (
+                          <li key={index}>{outcome}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+
+                  {!hiddenSections.has("fullStack") &&
+                    project.fullStack &&
+                    project.fullStack.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">Full Stack</h3>
+                      <div className="not-prose grid gap-4 md:grid-cols-2">
+                        {project.fullStack.map((group) => (
+                          <Card key={group.title} className="border-border/60">
+                            <CardHeader className="pb-3">
+                              <CardTitle className="text-lg">{group.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <ul className="space-y-2 text-sm text-muted-foreground">
+                                {group.items.map((item) => (
+                                  <li key={item} className="flex gap-2 leading-relaxed">
+                                    <span className="mt-[0.45rem] h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {!hiddenSections.has("technologies") && (
+                    <>
+                      <h3 className="text-xl font-semibold mb-3 mt-6">Technologies</h3>
+                      <p className="text-muted-foreground">
+                        The project was developed using {project.technologies.join(", ")}.
+                        The application architecture ensures scalability and ease of maintenance.
+                      </p>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
