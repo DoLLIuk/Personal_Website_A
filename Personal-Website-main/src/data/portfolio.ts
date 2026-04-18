@@ -1,5 +1,11 @@
 import localExplorerScreenshot1 from "@/assets/local_explorer.png";
 import localExplorerScreenshot2 from "@/assets/local_explorer2.png";
+import localExplorerPreview from "@/assets/local_explorer_preview.png";
+import notesHubPreview from "@/assets/NotesHub_logo_wide.png";
+import notesHubScreenshot1 from "@/assets/screenshot1_NotesHub.webp";
+import notesHubScreenshot2 from "@/assets/screenshot2_NotesHub.webp";
+import notesHubScreenshot3 from "@/assets/screenshot3_NotesHub.webp";
+import notesHubScreenshot4 from "@/assets/screenshot4_NotesHub.webp";
 
 export const personalInfo = {
   name: "Mykyta Holovko",
@@ -83,7 +89,13 @@ export const projects = [
       "A smart Android application that leverages on-device Machine Learning to automatically categorize personal notes, enabling fast, private, and offline inference.",
     fullDescription:
       "NotesHub is a full-cycle mobile project: a custom NLP model was trained in Python on a 2,500+ sample dataset, optimized with TensorFlow Lite, and integrated into a native Android app for low-latency offline categorization. The engineering effort included building a reproducible preprocessing pipeline to ensure identical tokenization across training and runtime, and extensive debugging using token-level validation and model checksum comparisons. Extensive evaluation and edge-case testing ensured robust classification across noisy user inputs and diverse note formats. Production optimizations reduced model size and inference latency, enabling a responsive user experience while keeping all data private on-device.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80",
+    image: notesHubPreview,
+    screenshots: [
+      notesHubScreenshot1,
+      notesHubScreenshot2,
+      notesHubScreenshot3,
+      notesHubScreenshot4,
+    ],
     technologies: [
       "Python",
       "Kotlin",
@@ -109,7 +121,7 @@ export const projects = [
       "A native iOS application designed to enhance urban exploration by helping users discover local points of interest. The app features a responsive, modern interface that provides real-time navigation and personalized discovery through deep integration with location-based services.",
     fullDescription:
       "Local Explorer is a native iOS app that helps users discover nearby points of interest with a clean, accessible SwiftUI interface. It integrates Google Maps SDK for dynamic map interactions and the Google Directions API for smart routing. The app preprocesses and parses JSON location data to ensure fast, accurate display of POIs and supports category-driven updates and smooth UI transitions.",
-    image: localExplorerScreenshot1,
+    image: localExplorerPreview,
     screenshots: [localExplorerScreenshot1, localExplorerScreenshot2],
     technologies: ["Swift", "SwiftUI", "Google Maps SDK", "Google Directions API"],
     features: [

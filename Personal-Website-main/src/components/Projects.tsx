@@ -77,14 +77,22 @@ const Projects = () => {
               <motion.div key={project.id} variants={itemVariants}>
                 <Card className="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow">
                   <Link to={`/project/${project.id}`}>
-                    <div className="aspect-video overflow-hidden bg-muted cursor-pointer">
+                    <div
+                      className={`aspect-video overflow-hidden cursor-pointer ${
+                        project.id === 1 ? "bg-white px-2 py-1 flex items-center justify-center" : "bg-muted"
+                      }`}
+                    >
                       <img
                         src={project.image}
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        className={`w-full h-full object-cover hover:scale-105 transition-transform duration-300 ${
-                          project.id === 2 ? "object-top" : ""
+                        className={`w-full h-full transition-transform duration-300 ${
+                          project.id === 1
+                            ? "object-contain scale-[1.42] hover:scale-[1.48]"
+                            : project.id === 2
+                              ? "object-cover object-top hover:scale-105"
+                              : "object-cover hover:scale-105"
                         }`}
                       />
                     </div>
