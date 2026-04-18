@@ -1,6 +1,7 @@
 import localExplorerScreenshot1 from "@/assets/local_explorer.png";
 import localExplorerScreenshot2 from "@/assets/local_explorer2.png";
 import localExplorerPreview from "@/assets/local_explorer_preview.png";
+import voiceAssistantPreviewTrial from "@/assets/AI_Voice_Assistant_preview_trial.jpg";
 import voiceAssistantScreenshot from "@/assets/ai_voice_assistant_Screenshot.png";
 import voiceAssistantArchitecture from "@/assets/ai_voice_assistant_system_architecture.png";
 import notesHubPreview from "@/assets/NotesHub_logo_wide.png";
@@ -129,7 +130,7 @@ export const projects: PortfolioProject[] = [
       "A Windows desktop voice assistant that connects speech recognition, LLM reasoning, web routing, and multi-provider TTS into one practical end-to-end product with strong fallback behavior and a clean desktop UX.",
     fullDescription:
       "AI Voice Assistant is a desktop application that turns voice input into a reliable spoken response through a structured pipeline: audio capture, speech detection, transcription, LLM reasoning, optional web routing, speech synthesis, and local playback. I built it as a practical AI product rather than a simple model demo, with a strong focus on responsiveness, fallback behavior, and user-facing clarity. The project demonstrates applied AI engineering across desktop UI, API integration, prompt design, modular Python architecture, and runtime reliability.",
-    image: voiceAssistantScreenshot,
+    image: voiceAssistantPreviewTrial,
     screenshots: [voiceAssistantScreenshot],
     technologies: [
       "Python",
