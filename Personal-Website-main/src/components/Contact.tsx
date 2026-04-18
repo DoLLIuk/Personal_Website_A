@@ -100,7 +100,7 @@ const Contact = () => {
                   <CardTitle>Profiles</CardTitle>
                   <CardDescription>Find me on the platforms below</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 pt-7">
                   {socialIcons.map((social, index) => (
                     <Button
                       key={index}

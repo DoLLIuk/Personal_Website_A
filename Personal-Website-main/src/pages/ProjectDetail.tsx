@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ExternalLink,
   Github,
+  X,
 } from "lucide-react";
 import { projects } from "@/data/portfolio";
 import { useEffect, useState } from "react";
@@ -17,12 +18,29 @@ const ProjectDetail = () => {
   const { id } = useParams();
   const project = projects.find((p) => p.id === Number(id));
   const [activeScreenshot, setActiveScreenshot] = useState(0);
+  const [isArchitectureLightboxOpen, setIsArchitectureLightboxOpen] = useState(false);
 
   // Ensure we land at the top when opening a project page
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
     setActiveScreenshot(0);
+    setIsArchitectureLightboxOpen(false);
   }, [id]);
+
+  useEffect(() => {
+    if (!isArchitectureLightboxOpen) {
+      return;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsArchitectureLightboxOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isArchitectureLightboxOpen]);
 
   const screenshots = project?.screenshots ?? [];
   const hiddenFacts = new Set(project?.hiddenFacts ?? []);
@@ -196,13 +214,20 @@ const ProjectDetail = () => {
                       )}
                       <div className="not-prose space-y-4">
                         <Card className="overflow-hidden border bg-background">
-                          <img
-                            src={project.architectureImage}
-                            alt={`${project.title} architecture diagram`}
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-auto"
-                          />
+                          <button
+                            type="button"
+                            onClick={() => setIsArchitectureLightboxOpen(true)}
+                            className="block w-full cursor-zoom-in"
+                            aria-label={`Open ${project.title} architecture diagram in full screen`}
+                          >
+                            <img
+                              src={project.architectureImage}
+                              alt={`${project.title} architecture diagram`}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-auto"
+                            />
+                          </button>
                         </Card>
                         {project.architectureHighlights &&
                           project.architectureHighlights.length > 0 && (
@@ -225,7 +250,7 @@ const ProjectDetail = () => {
                         className="not-prose mx-auto space-y-4"
                         style={{
                           maxWidth: isMobileScreenshotLayout
-                            ? "26rem"
+                            ? "31rem"
                             : project.screenshotScale
                             ? `${48 * project.screenshotScale}rem`
                             : "48rem",
@@ -238,15 +263,25 @@ const ProjectDetail = () => {
                             }`}
                           >
                             <div className="relative flex items-center justify-center">
-                            <img
-                              src={screenshots[activeScreenshot]}
-                              alt={`${project.title} screenshot ${activeScreenshot + 1}`}
-                              loading="lazy"
-                              decoding="async"
-                              className={`mx-auto h-auto rounded-lg ${
-                                isMobileScreenshotLayout ? "w-auto max-h-[42rem]" : "w-full"
-                              }`}
-                            />
+                              <div
+                                className={
+                                  isMobileScreenshotLayout
+                                    ? "w-[24rem] max-w-full h-[47.5rem] overflow-hidden rounded-lg bg-muted"
+                                    : "w-full"
+                                }
+                              >
+                                <img
+                                  src={screenshots[activeScreenshot]}
+                                  alt={`${project.title} screenshot ${activeScreenshot + 1}`}
+                                  loading="lazy"
+                                  decoding="async"
+                                  className={`mx-auto rounded-lg ${
+                                    isMobileScreenshotLayout
+                                      ? "h-full w-full object-cover object-top"
+                                      : "h-auto w-full"
+                                  }`}
+                                />
+                              </div>
                             </div>
                             {screenshots.length > 1 && (
                               <>
@@ -367,6 +402,36 @@ const ProjectDetail = () => {
           </motion.div>
         </div>
       </motion.div>
+
+      {project.architectureImage && isArchitectureLightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setIsArchitectureLightboxOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${project.title} architecture diagram`}
+        >
+          <button
+            type="button"
+            onClick={() => setIsArchitectureLightboxOpen(false)}
+            className="absolute right-4 top-4 rounded-full bg-background/90 p-2 text-foreground shadow-lg transition hover:bg-background"
+            aria-label="Close full screen diagram"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          <div
+            className="max-h-[90vh] max-w-[90vw]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              src={project.architectureImage}
+              alt={`${project.title} architecture diagram full screen`}
+              className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

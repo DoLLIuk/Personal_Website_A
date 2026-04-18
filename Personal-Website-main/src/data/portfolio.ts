@@ -2,13 +2,22 @@ import localExplorerScreenshot1 from "@/assets/local_explorer.png";
 import localExplorerScreenshot2 from "@/assets/local_explorer2.png";
 import localExplorerPreview from "@/assets/local_explorer_preview.png";
 import voiceAssistantPreviewTrial from "@/assets/AI_Voice_Assistant_preview_trial.jpg";
+import voiceAssistantPreviewTrialWhite from "@/assets/AI_Voice_Assistant_preview_trial_white.png";
 import voiceAssistantScreenshot from "@/assets/ai_voice_assistant_Screenshot.png";
 import voiceAssistantArchitecture from "@/assets/ai_voice_assistant_system_architecture.png";
 import notesHubPreview from "@/assets/NotesHub_logo_wide.png";
+import notesHubPreviewBlack from "@/assets/NotesHub_logo_wide_black.png";
 import notesHubScreenshot1 from "@/assets/screenshot1_NotesHub.webp";
 import notesHubScreenshot2 from "@/assets/screenshot2_NotesHub.webp";
 import notesHubScreenshot3 from "@/assets/screenshot3_NotesHub.webp";
 import notesHubScreenshot4 from "@/assets/screenshot4_NotesHub.webp";
+import calorieTrackingAppPreview from "@/assets/calorie_tracking_app_preview.jpg";
+import calorieTrackingAppScreenshot1 from "@/assets/calorie_tracking_app_screenshot_1.jpg";
+import calorieTrackingAppScreenshot2 from "@/assets/calorie_tracking_app_screenshot_2.jpg";
+import calorieTrackingAppScreenshot3 from "@/assets/calorie_tracking_app_screenshot_3.jpg";
+import calorieTrackingAppScreenshot4 from "@/assets/calorie_tracking_app_screenshot_4.jpg";
+import calorieTrackingAppScreenshot5 from "@/assets/calorie_tracking_app_screenshot_5.jpg";
+import calorieTrackingAppScreenshot6 from "@/assets/calorie_tracking_app_screenshot_6.jpg";
 
 export type ProjectStackGroup = {
   title: string;
@@ -21,6 +30,10 @@ export interface PortfolioProject {
   description: string;
   fullDescription: string;
   image: string;
+  themedImage?: {
+    light: string;
+    dark: string;
+  };
   screenshots?: string[];
   technologies: string[];
   previewTechnologies?: string[];
@@ -43,6 +56,7 @@ export interface PortfolioProject {
   screenshotScale?: number;
   screenshotLayout?: "desktop" | "mobile";
   previewMode?: "contain" | "cover" | "cover-top";
+  previewScale?: number;
   showDetailHeroImage?: boolean;
   hiddenSections?: string[];
 }
@@ -131,6 +145,10 @@ export const projects: PortfolioProject[] = [
     fullDescription:
       "AI Voice Assistant is a desktop application that turns voice input into a reliable spoken response through a structured pipeline: audio capture, speech detection, transcription, LLM reasoning, optional web routing, speech synthesis, and local playback. I built it as a practical AI product rather than a simple model demo, with a strong focus on responsiveness, fallback behavior, and user-facing clarity. The project demonstrates applied AI engineering across desktop UI, API integration, prompt design, modular Python architecture, and runtime reliability.",
     image: voiceAssistantPreviewTrial,
+    themedImage: {
+      light: voiceAssistantPreviewTrialWhite,
+      dark: voiceAssistantPreviewTrial,
+    },
     screenshots: [voiceAssistantScreenshot],
     technologies: [
       "Python",
@@ -206,8 +224,111 @@ export const projects: PortfolioProject[] = [
     screenshotScale: 1.2,
     github: "https://github.com/DoLLIuk/Voice_assistant_Public",
     demo: "",
-    previewMode: "contain",
+    previewMode: "cover",
     screenshotLayout: "desktop",
+    showDetailHeroImage: false,
+  },
+  {
+    id: 2,
+    title: "AI Calorie Tracker",
+    description:
+      "A full-stack nutrition tracking app that helps users log meals faster with personalized goals, AI-assisted photo analysis, and reliable manual editing flows.",
+    fullDescription:
+      "AI Calorie Tracker is a functional MVP designed to make nutrition tracking faster, clearer, and easier to sustain in everyday use. I built it as a complete product, combining a Flutter mobile app with a custom backend service for photo-based food analysis, so the experience could be designed end to end rather than as a standalone interface. The app starts with a multi-step onboarding flow that calculates personalized calorie and macronutrient targets, then supports practical day-to-day meal logging through camera upload, gallery upload, manual entry, portion confirmation, and edit/delete flows. To make the product feel reliable in real use, I added local persistence, session-based meal history, and nutrition recalculation logic that keeps totals consistent over time. I also built the backend API for photo-based food analysis, including secure request handling, portion confirmation, and consistent structured responses that made the mobile app easier to integrate and extend. Overall, the project demonstrates my ability to turn an AI-enabled idea into a user-facing full-stack application with thoughtful product decisions, dependable architecture, and attention to real-world usability.",
+    image: calorieTrackingAppPreview,
+    screenshots: [
+      calorieTrackingAppScreenshot1,
+      calorieTrackingAppScreenshot2,
+      calorieTrackingAppScreenshot3,
+      calorieTrackingAppScreenshot4,
+      calorieTrackingAppScreenshot5,
+      calorieTrackingAppScreenshot6,
+    ],
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Python",
+      "FastAPI",
+      "Material Design 3",
+      "Shared Preferences",
+      "Image Picker",
+      "REST API Integration",
+      "Widget Testing",
+    ],
+    previewTechnologies: [
+      "Flutter",
+      "Dart",
+      "Python",
+      "FastAPI",
+      "Material Design 3",
+      "Shared Preferences",
+    ],
+    features: [
+      "Built a multi-step onboarding flow with saved draft state and persisted final nutrition targets so users can complete setup without losing progress.",
+      "Implemented AI-assisted meal capture from camera and gallery input, plus a complete manual logging flow with meal type selection for flexibility.",
+      "Built a custom backend flow for photo-food analysis with structured JSON output, API-key protection, and a dedicated portion-confirmation endpoint.",
+      "Designed a portion confirmation step for uncertain AI results, making the overall experience more trustworthy and user-controlled.",
+      "Added meal editing and deletion with proportional macro recalculation to keep calorie and nutrient totals accurate after changes.",
+    ],
+    highlights: [
+      "Shows product thinking by supporting both AI-assisted and manual flows instead of relying on a single ideal user path.",
+      "Demonstrates full-stack ownership by combining the mobile client with a purpose-built backend service for image analysis.",
+      "Balances UX and reliability by adding confirmation and correction flows around AI output instead of treating model responses as always correct.",
+    ],
+    outcomes: [
+      "Delivered a functional nutrition-tracking MVP with personalized targets, meal CRUD, AI-powered photo analysis, and backend-assisted portion confirmation.",
+      "Improved usability by making the latest meal, macro progress, and daily calorie progress immediately visible from the home dashboard.",
+      "Reduced friction for repeat use through draft-saving onboarding and persistent local meal history.",
+      "Built a codebase that is easier to maintain and extend by separating mobile flows, meal session logic, backend contracts, configuration, and photo-analysis logic.",
+    ],
+    fullStack: [
+      {
+        title: "Mobile Application",
+        items: [
+          "Flutter with Material 3 UI",
+          "Dart application logic",
+          "Meal CRUD flows",
+          "Home dashboard and onboarding experience",
+        ],
+      },
+      {
+        title: "Backend and API",
+        items: [
+          "Python backend service for photo-food analysis",
+          "Structured JSON response design",
+          "API-key protected endpoints",
+          "Portion confirmation and unified error handling",
+        ],
+      },
+      {
+        title: "Data and Product Logic",
+        items: [
+          "Personalized calorie and macro target calculations",
+          "Meal session grouping with time-window classification",
+          "Proportional macro recalculation on edit",
+          "Local persistence with Shared Preferences",
+        ],
+      },
+      {
+        title: "Integration and Quality",
+        items: [
+          "Multipart image upload for meal analysis",
+          "Camera and gallery input handling",
+          "Runtime configuration via dart-define",
+          "Unit and widget testing for core behavior",
+        ],
+      },
+    ],
+    category: "Mobile Health and Nutrition Application",
+    role: "Independent developer responsible for product workflow design, Flutter implementation, backend API design, integration, persistence, and testing.",
+    team: "Independent project",
+    status: "Functional MVP",
+    hiddenFacts: ["Team", "Status"],
+    github: "",
+    demo: "",
+    previewMode: "cover-top",
+    previewScale: 1.22,
+    screenshotLayout: "mobile",
     showDetailHeroImage: false,
   },
   {
@@ -218,6 +339,10 @@ export const projects: PortfolioProject[] = [
     fullDescription:
       "NotesHub is a full-cycle mobile project: a custom NLP model was trained in Python on a 2,500+ sample dataset, optimized with TensorFlow Lite, and integrated into a native Android app for low-latency offline categorization. The engineering effort included building a reproducible preprocessing pipeline to ensure identical tokenization across training and runtime, and extensive debugging using token-level validation and model checksum comparisons. Extensive evaluation and edge-case testing ensured robust classification across noisy user inputs and diverse note formats. Production optimizations reduced model size and inference latency, enabling a responsive user experience while keeping all data private on-device.",
     image: notesHubPreview,
+    themedImage: {
+      light: notesHubPreview,
+      dark: notesHubPreviewBlack,
+    },
     screenshots: [
       notesHubScreenshot1,
       notesHubScreenshot2,
@@ -246,21 +371,6 @@ export const projects: PortfolioProject[] = [
     previewMode: "contain",
     screenshotLayout: "mobile",
     showDetailHeroImage: false,
-  },
-  {
-    id: 2,
-    title: "Portfolio Generator",
-    description: "No-code tool for creating personal portfolio websites",
-    fullDescription: "Personal portfolio website builder that requires no programming skills. Users can choose a template, customize colors and fonts, add information about themselves and their projects through a user-friendly interface. The finished site can be published with one click. All created sites are fully responsive and optimized.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    technologies: ["React", "TypeScript", "Framer Motion"],
-    category: "Frontend Web Application",
-    role: "Developer responsible for product concept, UI architecture, responsive frontend implementation, and reusable customization flows.",
-    github: "https://github.com/yourusername/project4",
-    demo: "https://demo4.example.com",
-    previewMode: "cover",
-    screenshotLayout: "desktop",
-    showDetailHeroImage: true,
   },
   {
     id: 4,

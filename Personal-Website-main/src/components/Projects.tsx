@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTheme } from "next-themes";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +13,13 @@ import { Link } from "react-router-dom";
 const Projects = () => {
   const ref = useRef<HTMLElement | null>(null);
   const location = useLocation();
+  const { theme } = useTheme();
   const fromProject = (location.state as { fromProject?: boolean } | null)?.fromProject;
+  const [mounted, setMounted] = React.useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,6 +83,13 @@ const Projects = () => {
             {projects.map((project) => {
               const previewTechnologies =
                 project.previewTechnologies ?? project.technologies;
+              const previewScale = project.previewScale ?? 1;
+              const previewImage =
+                mounted && project.themedImage
+                  ? theme === "dark"
+                    ? project.themedImage.dark
+                    : project.themedImage.light
+                  : project.image;
 
               return (
                 <motion.div key={project.id} variants={itemVariants}>
@@ -91,7 +105,7 @@ const Projects = () => {
                       }`}
                     >
                       <img
-                        src={project.image}
+                        src={previewImage}
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
@@ -102,6 +116,9 @@ const Projects = () => {
                               ? "object-cover object-top hover:scale-105"
                               : "object-cover hover:scale-105"
                         }`}
+                        style={{
+                          scale: `${previewScale}`,
+                        }}
                       />
                     </div>
                   </Link>
