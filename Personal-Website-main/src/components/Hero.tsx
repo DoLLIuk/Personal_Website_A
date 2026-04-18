@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import profileImage from "@/assets/pro_selfie_photo_v.08.png";
 import { personalInfo } from "@/data/portfolio";
 
 const Hero = () => {
+  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -51,7 +53,7 @@ const Hero = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center"
           >
             <Button
               size="lg"
@@ -67,6 +69,12 @@ const Hero = () => {
               onClick={() => scrollToSection("projects")}
             >
               My Projects
+            </Button>
+            <Button asChild size="lg" className="group">
+              <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+                Resume
+                <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
             </Button>
           </motion.div>
         </div>

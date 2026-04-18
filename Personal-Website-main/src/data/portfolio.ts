@@ -24,6 +24,12 @@ export type ProjectStackGroup = {
   items: string[];
 };
 
+export type ProjectMetric = {
+  label: string;
+  value: string;
+  note?: string;
+};
+
 export interface PortfolioProject {
   id: number;
   title: string;
@@ -36,6 +42,7 @@ export interface PortfolioProject {
   };
   screenshots?: string[];
   technologies: string[];
+  previewMetrics?: string[];
   previewTechnologies?: string[];
   features?: string[];
   github: string;
@@ -53,6 +60,7 @@ export interface PortfolioProject {
   architectureImage?: string;
   architectureHighlights?: string[];
   hiddenFacts?: string[];
+  metrics?: ProjectMetric[];
   screenshotScale?: number;
   screenshotLayout?: "desktop" | "mobile";
   previewMode?: "contain" | "cover" | "cover-top";
@@ -141,15 +149,43 @@ export const projects: PortfolioProject[] = [
     id: 1,
     title: "AI Voice Assistant",
     description:
-      "A Windows desktop voice assistant that connects speech recognition, LLM reasoning, web routing, and multi-provider TTS into one practical end-to-end product with strong fallback behavior and a clean desktop UX.",
+      "Desktop voice assistant with 5.35s end-to-end latency, web-aware routing, and resilient fallback behavior. Built as a practical voice product with a lean pipeline, smaller default models, and strong responsiveness on short everyday turns.",
     fullDescription:
-      "AI Voice Assistant is a desktop application that turns voice input into a reliable spoken response through a structured pipeline: audio capture, speech detection, transcription, LLM reasoning, optional web routing, speech synthesis, and local playback. I built it as a practical AI product rather than a simple model demo, with a strong focus on responsiveness, fallback behavior, and user-facing clarity. The project demonstrates applied AI engineering across desktop UI, API integration, prompt design, modular Python architecture, and runtime reliability.",
+      "AI Voice Assistant is a desktop application optimized first for perceived responsiveness and smooth turn-taking. In a representative local debug run for a short everyday user query without a reasoning-heavy path, I measured an average end-to-end turn latency of 5.35 seconds from hotkey release to TTS-ready audio, with 1.19 seconds for transcription, 1.55 seconds for main-model generation, and 1.41 seconds for speech synthesis in the illustrative sample below. I achieved that by optimizing the pipeline around smaller, faster default models, a rules-first router that can skip unnecessary routing calls, and a desktop flow designed to keep short voice turns reliable. The application turns voice input into a spoken response through a structured pipeline: audio capture, speech detection, transcription, LLM reasoning, optional web routing, speech synthesis, and local playback. I built it as a practical AI product rather than a simple model demo, with a strong focus on responsiveness, fallback behavior, and user-facing clarity. The project demonstrates applied AI engineering across desktop UI, API integration, prompt design, modular Python architecture, and runtime reliability.",
     image: voiceAssistantPreviewTrial,
     themedImage: {
       light: voiceAssistantPreviewTrialWhite,
       dark: voiceAssistantPreviewTrial,
     },
     screenshots: [voiceAssistantScreenshot],
+    metrics: [
+      {
+        label: "Total Turn Latency",
+        value: "5.35s",
+        note: "Average for a short user request without a reasoning-heavy path",
+      },
+      {
+        label: "STT Latency",
+        value: "1.19s",
+        note: "Short spoken query to text",
+      },
+      {
+        label: "LLM Time",
+        value: "2.75s",
+        note: "Main assistant reply generation",
+      },
+      {
+        label: "TTS Time",
+        value: "1.41s",
+        note: "Speech synthesis before playback",
+      },
+      {
+        label: "Routing Overhead",
+        value: "0ms",
+        note: "Can rise to about 1300ms when internet-backed routing is needed",
+      },
+    ],
+    previewMetrics: ["5.35s latency", "Web-aware routing"],
     technologies: [
       "Python",
       "Tkinter",
@@ -232,9 +268,9 @@ export const projects: PortfolioProject[] = [
     id: 2,
     title: "AI Calorie Tracker",
     description:
-      "A full-stack nutrition tracking app that helps users log meals faster with personalized goals, AI-assisted photo analysis, and reliable manual editing flows.",
+      "Full-stack nutrition app with AI photo analysis, 5.83s average response time, and 80%+ calorie-estimation accuracy on simple meals. Designed as a complete Flutter plus backend product with personalized goals, flexible meal logging, and reliable user correction flows.",
     fullDescription:
-      "AI Calorie Tracker is a functional MVP designed to make nutrition tracking faster, clearer, and easier to sustain in everyday use. I built it as a complete product, combining a Flutter mobile app with a custom backend service for photo-based food analysis, so the experience could be designed end to end rather than as a standalone interface. The app starts with a multi-step onboarding flow that calculates personalized calorie and macronutrient targets, then supports practical day-to-day meal logging through camera upload, gallery upload, manual entry, portion confirmation, and edit/delete flows. To make the product feel reliable in real use, I added local persistence, session-based meal history, and nutrition recalculation logic that keeps totals consistent over time. I also built the backend API for photo-based food analysis, including secure request handling, portion confirmation, and consistent structured responses that made the mobile app easier to integrate and extend. Overall, the project demonstrates my ability to turn an AI-enabled idea into a user-facing full-stack application with thoughtful product decisions, dependable architecture, and attention to real-world usability.",
+      "AI Calorie Tracker is a functional MVP designed to make nutrition tracking faster, clearer, and easier to sustain in everyday use. In practical testing, the photo-analysis flow returns calories and macros in about 5.83 seconds on average from image submission to result, and calorie estimation was over 80% accurate on simple low-component meals where visual interpretation is more stable. I built it as a complete product, combining a Flutter mobile app with a custom backend service for photo-based food analysis, so the experience could be designed end to end rather than as a standalone interface. The app starts with a multi-step onboarding flow that calculates personalized calorie and macronutrient targets, then supports practical day-to-day meal logging through camera upload, gallery upload, manual entry, portion confirmation, and edit/delete flows. To make the product feel reliable in real use, I added local persistence, session-based meal history, and nutrition recalculation logic that keeps totals consistent over time. I also built the backend API for photo-based food analysis, including secure request handling, portion confirmation, and consistent structured responses that made the mobile app easier to integrate and extend.",
     image: calorieTrackingAppPreview,
     screenshots: [
       calorieTrackingAppScreenshot1,
@@ -244,6 +280,19 @@ export const projects: PortfolioProject[] = [
       calorieTrackingAppScreenshot5,
       calorieTrackingAppScreenshot6,
     ],
+    metrics: [
+      {
+        label: "Photo Analysis Latency",
+        value: "5.83s",
+        note: "Average time from image submission to calories and macros returned",
+      },
+      {
+        label: "Calorie Accuracy",
+        value: "80%+",
+        note: "Observed on simple low-component meals during practical testing",
+      },
+    ],
+    previewMetrics: ["5.83s avg response", "80%+ calorie accuracy"],
     technologies: [
       "Flutter",
       "Dart",
@@ -324,7 +373,7 @@ export const projects: PortfolioProject[] = [
     team: "Independent project",
     status: "Functional MVP",
     hiddenFacts: ["Team", "Status"],
-    github: "",
+    github: "https://github.com/DoLLIuk/Lumina-Health",
     demo: "",
     previewMode: "cover-top",
     previewScale: 1.22,
@@ -335,7 +384,7 @@ export const projects: PortfolioProject[] = [
     id: 3,
     title: "NotesHub",
     description:
-      "A smart Android application that leverages on-device Machine Learning to automatically categorize personal notes, enabling fast, private, and offline inference.",
+      "On-device Android note classifier trained on 2,500+ samples, achieving 80% validation accuracy with offline inference. Optimized for privacy and speed through TensorFlow Lite deployment and a reproducible preprocessing pipeline across training and runtime.",
     fullDescription:
       "NotesHub is a full-cycle mobile project: a custom NLP model was trained in Python on a 2,500+ sample dataset, optimized with TensorFlow Lite, and integrated into a native Android app for low-latency offline categorization. The engineering effort included building a reproducible preprocessing pipeline to ensure identical tokenization across training and runtime, and extensive debugging using token-level validation and model checksum comparisons. Extensive evaluation and edge-case testing ensured robust classification across noisy user inputs and diverse note formats. Production optimizations reduced model size and inference latency, enabling a responsive user experience while keeping all data private on-device.",
     image: notesHubPreview,
@@ -358,6 +407,7 @@ export const projects: PortfolioProject[] = [
       "Pandas",
       "Android SDK",
     ],
+    previewMetrics: ["2,500+ samples", "80% val accuracy"],
     features: [
       "Custom NLP Pipeline: Developed and trained a text classification model on a dataset of 2,500+ samples, achieving 80% validation accuracy using TensorFlow.",
       "Mobile Optimization & Deployment: Converted and optimized the model with TensorFlow Lite to enable fast, private, and offline categorization directly on the device.",
@@ -376,11 +426,12 @@ export const projects: PortfolioProject[] = [
     id: 4,
     title: "Local Explorer",
     description:
-      "A native iOS application designed to enhance urban exploration by helping users discover local points of interest. The app features a responsive, modern interface that provides real-time navigation and personalized discovery through deep integration with location-based services.",
+      "Native iOS app for location-based discovery and routing, built with SwiftUI and Google Maps integrations.",
     fullDescription:
       "Local Explorer is a native iOS app that helps users discover nearby points of interest with a clean, accessible SwiftUI interface. It integrates Google Maps SDK for dynamic map interactions and the Google Directions API for smart routing. The app preprocesses and parses JSON location data to ensure fast, accurate display of POIs and supports category-driven updates and smooth UI transitions.",
     image: localExplorerPreview,
     screenshots: [localExplorerScreenshot1, localExplorerScreenshot2],
+    previewMetrics: ["Real-time routing", "Native iOS"],
     technologies: ["Swift", "SwiftUI", "Google Maps SDK", "Google Directions API"],
     features: [
       "Dynamic Map Interaction: Real-time discovery of nearby restaurants, hotels, and attractions using Google Maps SDK.",

@@ -187,6 +187,31 @@ const ProjectDetail = () => {
                     {project.fullDescription || project.description}
                   </p>
 
+                  {project.metrics && project.metrics.length > 0 && (
+                    <div className="not-prose mb-8">
+                      <h3 className="text-lg font-semibold mb-4">Performance Snapshot</h3>
+                      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        {project.metrics.map((metric) => (
+                          <Card key={metric.label} className="border-border/60">
+                            <CardContent className="pt-6">
+                              <p className="text-sm font-medium text-muted-foreground mb-2">
+                                {metric.label}
+                              </p>
+                              <p className="text-3xl font-bold tracking-tight mb-2">
+                                {metric.value}
+                              </p>
+                              {metric.note && (
+                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                  {metric.note}
+                                </p>
+                              )}
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {!hiddenSections.has("highlights") &&
                     project.highlights &&
                     project.highlights.length > 0 && (

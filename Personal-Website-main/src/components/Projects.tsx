@@ -83,6 +83,7 @@ const Projects = () => {
             {projects.map((project) => {
               const previewTechnologies =
                 project.previewTechnologies ?? project.technologies;
+              const previewMetrics = project.previewMetrics ?? [];
               const previewScale = project.previewScale ?? 1;
               const previewImage =
                 mounted && project.themedImage
@@ -122,19 +123,38 @@ const Projects = () => {
                       />
                     </div>
                   </Link>
-                  <CardHeader>
+                  <CardHeader className="flex min-h-[12rem] flex-col">
                     <CardTitle>{project.title}</CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
+                    {previewMetrics.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {previewMetrics.map((metric, index) => (
+                          <Badge
+                            key={metric}
+                            variant={index === 0 ? "default" : "outline"}
+                            className={
+                              index === 0
+                                ? "text-[0.72rem] px-3 py-1 font-bold tracking-tight"
+                                : "text-[0.72rem] px-3 py-1 font-semibold border-border/80"
+                            }
+                          >
+                            {metric}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                    <CardDescription className="flex-1">
+                      {project.description}
+                    </CardDescription>
                   </CardHeader>
-                  <CardContent className="flex-1 flex flex-col justify-between">
-                    <div className="flex flex-wrap gap-2 mb-4">
+                  <CardContent className="flex-1 flex flex-col">
+                    <div className="mb-4 flex min-h-[2.25rem] flex-wrap content-start gap-2">
                       {previewTechnologies.map((tech, index) => (
                         <Badge key={index} variant="secondary">
                           {tech}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 mt-auto">
                       {project.github && (
                         <Button asChild variant="outline" size="sm" className="flex-1">
                           <a href={project.github} target="_blank" rel="noopener noreferrer">
