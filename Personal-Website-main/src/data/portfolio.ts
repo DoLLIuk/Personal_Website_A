@@ -146,6 +146,122 @@ export const about = {
 
 export const projects: PortfolioProject[] = [
   {
+    id: 2,
+    title: "AI Calorie Tracker",
+    description:
+      "Full-stack nutrition app with AI photo analysis, 5.83s average response time, and 80%+ calorie-estimation accuracy on simple meals. Designed as a complete Flutter plus backend product with personalized goals, flexible meal logging, and reliable user correction flows.",
+    fullDescription:
+      "AI Calorie Tracker is a functional MVP designed to make nutrition tracking faster, clearer, and easier to sustain in everyday use. In practical testing, the photo-analysis flow returns calories and macros in about 5.83 seconds on average from image submission to result, and calorie estimation was over 80% accurate on simple low-component meals where visual interpretation is more stable. I built it as a complete product, combining a Flutter mobile app with a custom backend service for photo-based food analysis, so the experience could be designed end to end rather than as a standalone interface. The app starts with a multi-step onboarding flow that calculates personalized calorie and macronutrient targets, then supports practical day-to-day meal logging through camera upload, gallery upload, manual entry, portion confirmation, and edit/delete flows. To make the product feel reliable in real use, I added local persistence, session-based meal history, and nutrition recalculation logic that keeps totals consistent over time. I also built the backend API for photo-based food analysis, including secure request handling, portion confirmation, and consistent structured responses that made the mobile app easier to integrate and extend.",
+    image: calorieTrackingAppPreview,
+    screenshots: [
+      calorieTrackingAppScreenshot1,
+      calorieTrackingAppScreenshot2,
+      calorieTrackingAppScreenshot3,
+      calorieTrackingAppScreenshot4,
+      calorieTrackingAppScreenshot5,
+      calorieTrackingAppScreenshot6,
+    ],
+    metrics: [
+      {
+        label: "Photo Analysis Latency",
+        value: "5.83s",
+        note: "Average time from image submission to calories and macros returned",
+      },
+      {
+        label: "Calorie Accuracy",
+        value: "80%+",
+        note: "Observed on simple low-component meals during practical testing",
+      },
+    ],
+    previewMetrics: ["5.83s avg response", "80%+ calorie accuracy"],
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Python",
+      "FastAPI",
+      "Material Design 3",
+      "Shared Preferences",
+      "Image Picker",
+      "REST API Integration",
+      "Widget Testing",
+    ],
+    previewTechnologies: [
+      "Flutter",
+      "Dart",
+      "Python",
+      "FastAPI",
+      "Material Design 3",
+      "Shared Preferences",
+    ],
+    features: [
+      "Built a multi-step onboarding flow with saved draft state and persisted final nutrition targets so users can complete setup without losing progress.",
+      "Implemented AI-assisted meal capture from camera and gallery input, plus a complete manual logging flow with meal type selection for flexibility.",
+      "Built a custom backend flow for photo-food analysis with structured JSON output, API-key protection, and a dedicated portion-confirmation endpoint.",
+      "Designed a portion confirmation step for uncertain AI results, making the overall experience more trustworthy and user-controlled.",
+      "Added meal editing and deletion with proportional macro recalculation to keep calorie and nutrient totals accurate after changes.",
+    ],
+    highlights: [
+      "Shows product thinking by supporting both AI-assisted and manual flows instead of relying on a single ideal user path.",
+      "Demonstrates full-stack ownership by combining the mobile client with a purpose-built backend service for image analysis.",
+      "Balances UX and reliability by adding confirmation and correction flows around AI output instead of treating model responses as always correct.",
+    ],
+    outcomes: [
+      "Delivered a functional nutrition-tracking MVP with personalized targets, meal CRUD, AI-powered photo analysis, and backend-assisted portion confirmation.",
+      "Improved usability by making the latest meal, macro progress, and daily calorie progress immediately visible from the home dashboard.",
+      "Reduced friction for repeat use through draft-saving onboarding and persistent local meal history.",
+      "Built a codebase that is easier to maintain and extend by separating mobile flows, meal session logic, backend contracts, configuration, and photo-analysis logic.",
+    ],
+    fullStack: [
+      {
+        title: "Mobile Application",
+        items: [
+          "Flutter with Material 3 UI",
+          "Dart application logic",
+          "Meal CRUD flows",
+          "Home dashboard and onboarding experience",
+        ],
+      },
+      {
+        title: "Backend and API",
+        items: [
+          "Python backend service for photo-food analysis",
+          "Structured JSON response design",
+          "API-key protected endpoints",
+          "Portion confirmation and unified error handling",
+        ],
+      },
+      {
+        title: "Data and Product Logic",
+        items: [
+          "Personalized calorie and macro target calculations",
+          "Meal session grouping with time-window classification",
+          "Proportional macro recalculation on edit",
+          "Local persistence with Shared Preferences",
+        ],
+      },
+      {
+        title: "Integration and Quality",
+        items: [
+          "Multipart image upload for meal analysis",
+          "Camera and gallery input handling",
+          "Runtime configuration via dart-define",
+          "Unit and widget testing for core behavior",
+        ],
+      },
+    ],
+    category: "Mobile Health and Nutrition Application",
+    role: "Independent developer responsible for product workflow design, Flutter implementation, backend API design, integration, persistence, and testing.",
+    team: "Independent project",
+    status: "Functional MVP",
+    hiddenFacts: ["Team", "Status"],
+    github: "https://github.com/DoLLIuk/Lumina-Health",
+    demo: "",
+    previewMode: "cover-top",
+    previewScale: 1.22,
+    screenshotLayout: "mobile",
+    showDetailHeroImage: false,
+  },
+  {
     id: 1,
     title: "AI Voice Assistant",
     description:
@@ -262,122 +378,6 @@ export const projects: PortfolioProject[] = [
     demo: "",
     previewMode: "cover",
     screenshotLayout: "desktop",
-    showDetailHeroImage: false,
-  },
-  {
-    id: 2,
-    title: "AI Calorie Tracker",
-    description:
-      "Full-stack nutrition app with AI photo analysis, 5.83s average response time, and 80%+ calorie-estimation accuracy on simple meals. Designed as a complete Flutter plus backend product with personalized goals, flexible meal logging, and reliable user correction flows.",
-    fullDescription:
-      "AI Calorie Tracker is a functional MVP designed to make nutrition tracking faster, clearer, and easier to sustain in everyday use. In practical testing, the photo-analysis flow returns calories and macros in about 5.83 seconds on average from image submission to result, and calorie estimation was over 80% accurate on simple low-component meals where visual interpretation is more stable. I built it as a complete product, combining a Flutter mobile app with a custom backend service for photo-based food analysis, so the experience could be designed end to end rather than as a standalone interface. The app starts with a multi-step onboarding flow that calculates personalized calorie and macronutrient targets, then supports practical day-to-day meal logging through camera upload, gallery upload, manual entry, portion confirmation, and edit/delete flows. To make the product feel reliable in real use, I added local persistence, session-based meal history, and nutrition recalculation logic that keeps totals consistent over time. I also built the backend API for photo-based food analysis, including secure request handling, portion confirmation, and consistent structured responses that made the mobile app easier to integrate and extend.",
-    image: calorieTrackingAppPreview,
-    screenshots: [
-      calorieTrackingAppScreenshot1,
-      calorieTrackingAppScreenshot2,
-      calorieTrackingAppScreenshot3,
-      calorieTrackingAppScreenshot4,
-      calorieTrackingAppScreenshot5,
-      calorieTrackingAppScreenshot6,
-    ],
-    metrics: [
-      {
-        label: "Photo Analysis Latency",
-        value: "5.83s",
-        note: "Average time from image submission to calories and macros returned",
-      },
-      {
-        label: "Calorie Accuracy",
-        value: "80%+",
-        note: "Observed on simple low-component meals during practical testing",
-      },
-    ],
-    previewMetrics: ["5.83s avg response", "80%+ calorie accuracy"],
-    technologies: [
-      "Flutter",
-      "Dart",
-      "Python",
-      "FastAPI",
-      "Material Design 3",
-      "Shared Preferences",
-      "Image Picker",
-      "REST API Integration",
-      "Widget Testing",
-    ],
-    previewTechnologies: [
-      "Flutter",
-      "Dart",
-      "Python",
-      "FastAPI",
-      "Material Design 3",
-      "Shared Preferences",
-    ],
-    features: [
-      "Built a multi-step onboarding flow with saved draft state and persisted final nutrition targets so users can complete setup without losing progress.",
-      "Implemented AI-assisted meal capture from camera and gallery input, plus a complete manual logging flow with meal type selection for flexibility.",
-      "Built a custom backend flow for photo-food analysis with structured JSON output, API-key protection, and a dedicated portion-confirmation endpoint.",
-      "Designed a portion confirmation step for uncertain AI results, making the overall experience more trustworthy and user-controlled.",
-      "Added meal editing and deletion with proportional macro recalculation to keep calorie and nutrient totals accurate after changes.",
-    ],
-    highlights: [
-      "Shows product thinking by supporting both AI-assisted and manual flows instead of relying on a single ideal user path.",
-      "Demonstrates full-stack ownership by combining the mobile client with a purpose-built backend service for image analysis.",
-      "Balances UX and reliability by adding confirmation and correction flows around AI output instead of treating model responses as always correct.",
-    ],
-    outcomes: [
-      "Delivered a functional nutrition-tracking MVP with personalized targets, meal CRUD, AI-powered photo analysis, and backend-assisted portion confirmation.",
-      "Improved usability by making the latest meal, macro progress, and daily calorie progress immediately visible from the home dashboard.",
-      "Reduced friction for repeat use through draft-saving onboarding and persistent local meal history.",
-      "Built a codebase that is easier to maintain and extend by separating mobile flows, meal session logic, backend contracts, configuration, and photo-analysis logic.",
-    ],
-    fullStack: [
-      {
-        title: "Mobile Application",
-        items: [
-          "Flutter with Material 3 UI",
-          "Dart application logic",
-          "Meal CRUD flows",
-          "Home dashboard and onboarding experience",
-        ],
-      },
-      {
-        title: "Backend and API",
-        items: [
-          "Python backend service for photo-food analysis",
-          "Structured JSON response design",
-          "API-key protected endpoints",
-          "Portion confirmation and unified error handling",
-        ],
-      },
-      {
-        title: "Data and Product Logic",
-        items: [
-          "Personalized calorie and macro target calculations",
-          "Meal session grouping with time-window classification",
-          "Proportional macro recalculation on edit",
-          "Local persistence with Shared Preferences",
-        ],
-      },
-      {
-        title: "Integration and Quality",
-        items: [
-          "Multipart image upload for meal analysis",
-          "Camera and gallery input handling",
-          "Runtime configuration via dart-define",
-          "Unit and widget testing for core behavior",
-        ],
-      },
-    ],
-    category: "Mobile Health and Nutrition Application",
-    role: "Independent developer responsible for product workflow design, Flutter implementation, backend API design, integration, persistence, and testing.",
-    team: "Independent project",
-    status: "Functional MVP",
-    hiddenFacts: ["Team", "Status"],
-    github: "https://github.com/DoLLIuk/Lumina-Health",
-    demo: "",
-    previewMode: "cover-top",
-    previewScale: 1.22,
-    screenshotLayout: "mobile",
     showDetailHeroImage: false,
   },
   {
