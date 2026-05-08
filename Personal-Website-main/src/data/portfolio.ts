@@ -92,19 +92,19 @@ export const skills = [
 export const technologyGroups = [
   {
     title: "Languages",
-    items: ["Python", "C++", "SQL", "HTML/CSS"],
+    items: ["Python", "C++", "SQL", "Dart", "Kotlin", "Swift"],
   },
   {
     title: "AI and Data",
-    items: ["TensorFlow", "TensorFlow Lite", "Pandas", "NumPy"],
+    items: ["TensorFlow", "NumPy"],
   },
   {
     title: "Application Development",
-    items: ["SwiftUI", "Android SDK", "React", "Desktop UI"],
+    items: ["Flutter", "FastAPI", "SwiftUI", "Android SDK"],
   },
   {
     title: "Tools and Platforms",
-    items: ["Git", "Docker", "Google Cloud Platform", "Xcode", "Jupyter"],
+    items: ["Git", "Docker", "REST APIs", "Xcode"],
   },
 ];
 
@@ -116,7 +116,7 @@ export const about = {
       title: "Information Technology Support Specialist",
       company: "Prospect Heights School District 23",
       location: "Prospect Heights, IL",
-      period: "June 2022 – Aug. 2024",
+      period: "June 2022 – Aug. 2023",
       description:
         "Supported daily IT operations while communicating with teachers and staff to diagnose technical issues and explain solutions. Helped troubleshoot basic network issues and software installations.",
     },
@@ -141,7 +141,7 @@ export const about = {
     { name: "Ukrainian", level: "Native" },
     { name: "Russian", level: "Fluent" },
   ],
-  interests: ["AI", "Machine Learning","Data Engineering" ,"Mobile ML", "Software Engineering", "Research"],
+  interests: ["AI", "Machine Learning", "Data Engineering", "Software Engineering", "Research"],
 };
 
 export const projects: PortfolioProject[] = [
